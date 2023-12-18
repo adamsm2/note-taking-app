@@ -1,6 +1,5 @@
 package pl.adamsm2.backend.services;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,29 +29,34 @@ public class NoteService {
 
     @Transactional(readOnly = true)
     public NoteResource getNoteById(Long id) {
-        Note note = noteRepository.findById(id)
+        final var note = noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
         return noteMapper.mapNoteToNoteResource(note);
     }
 
     @Transactional
-    public Note createNote(@NonNull CreateNoteRequest createNoteRequest) {
-        Note note = noteMapper.mapCreateNoteRequestToNote(createNoteRequest);
-        return noteRepository.save(note);
+    public void createNote(CreateNoteRequest createNoteRequest) {
+        final var note = noteMapper.mapCreateNoteRequestToNote(createNoteRequest);
+        noteRepository.save(note);
     }
 
     @Transactional
-    public void updateNote(Long id, @NonNull UpdateNoteRequest updateNoteRequest) {
-        Note note = noteRepository.findById(id)
+    public void updateNote(Long id, UpdateNoteRequest updateNoteRequest) {
+        final var note = noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
-        noteMapper.updateNoteFromUpdateNoteRequest(note, updateNoteRequest);
+        updateNoteFromUpdateNoteRequest(note, updateNoteRequest);
         noteRepository.save(note);
     }
 
     @Transactional
     public void deleteNote(Long id) {
-        Note note = noteRepository.findById(id)
+        final var note = noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
         noteRepository.delete(note);
+    }
+
+    private void updateNoteFromUpdateNoteRequest(Note note, UpdateNoteRequest updateNoteRequest) {
+        note.setTitle(updateNoteRequest.title());
+        note.setContent(updateNoteRequest.content());
     }
 }

@@ -33,24 +33,20 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNote(@Valid @RequestBody CreateNoteRequest createNoteRequest, UriComponentsBuilder ucb) {
-        Note createdNote = noteService.createNote(createNoteRequest);
-        URI locationOfNewNote = ucb
-                .path("notes/{id}")
-                .buildAndExpand(createdNote.getId())
-                .toUri();
-        return ResponseEntity.created(locationOfNewNote).build();
+    public ResponseEntity<Void> createNote(@RequestBody @Valid CreateNoteRequest createNoteRequest) {
+        noteService.createNote(createNoteRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateNote(@PathVariable Long id, @Valid @RequestBody UpdateNoteRequest updateNoteRequest) {
         noteService.updateNote(id, updateNoteRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
         noteService.deleteNote(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,6 +2,7 @@ package pl.adamsm2.backend.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pl.adamsm2.backend.ConstantData;
 
 @Entity
 @Builder
@@ -18,9 +19,9 @@ public class Note {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = ConstantData.NOTE_MAX_TITLE_LENGTH)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = ConstantData.NOTE_MAX_CONTENT_LENGTH)
     private String content;
 }

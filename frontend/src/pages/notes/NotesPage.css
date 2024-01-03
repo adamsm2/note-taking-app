@@ -1,0 +1,69 @@
+.notes-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+    margin: 0 auto;
+}
+
+.cards-container {
+    width: 100%;
+}
+
+.cards-container > * {
+    margin-bottom: 20px;
+}
+
+.search-bar-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.create-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.form-input-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.note-title-input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #a4a4a4;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.note-content-input {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #a4a4a4;
+    margin-bottom: 10px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    gap: 15px;
+    margin-bottom: 20px;
+}

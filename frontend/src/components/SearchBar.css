@@ -1,0 +1,15 @@
+.search-bar {
+    background-color: #FFFFFF;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+input {
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left: 10px;
+}

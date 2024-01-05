@@ -1,22 +1,21 @@
 package pl.adamsm2.backend.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 import pl.adamsm2.backend.dtos.CreateNoteRequest;
 import pl.adamsm2.backend.dtos.NoteResource;
 import pl.adamsm2.backend.dtos.UpdateNoteRequest;
-import pl.adamsm2.backend.models.Note;
 import pl.adamsm2.backend.services.NoteService;
 
-import java.net.URI;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/notes")
+@SecurityRequirement(name = "bearer-key")
 @RequiredArgsConstructor
 public class NoteController {
 

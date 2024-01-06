@@ -4,8 +4,12 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {notesApi} from "../../api/NotesApi.tsx";
 import Loading from "../../components/Loading.tsx";
+import {useAuth} from "react-oidc-context";
 
 const NoteForm = () => {
+    const auth = useAuth()
+    const accessToken = auth.user.access_token
+
     const navigate = useNavigate();
     const {noteId} = useParams();
     const [note, setNote] = useState<Note>({
@@ -18,7 +22,7 @@ const NoteForm = () => {
     useEffect(() => {
         let isCancelled = false;
         if (noteId !== "create") {
-            notesApi.getById(noteId)
+            notesApi.getById(noteId, accessToken)
                 .then((response) => {
                     if (!isCancelled) {
                         setNote(response.data);
@@ -36,9 +40,9 @@ const NoteForm = () => {
         setLoading(true);
         event.preventDefault()
         if (noteId === "create") {
-            await notesApi.create(note).catch(error => console.error('[Create error]: ', error))
+            await notesApi.create(note, accessToken).catch(error => console.error('[Create error]: ', error))
         } else {
-            await notesApi.update(noteId, note).catch(error => console.error('[Update error]: ', error))
+            await notesApi.update(noteId, note, accessToken).catch(error => console.error('[Update error]: ', error))
         }
         setLoading(false);
         navigate("/notes")

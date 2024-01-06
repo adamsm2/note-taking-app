@@ -1,25 +1,36 @@
 import backendApi from "./BackendApi.tsx";
+import {bearerAuth} from "./BearerAuth";
 
 const noteClient = backendApi('/notes')
 
 export const notesApi = {
-    getAll() {
-        return noteClient.get('')
+    getAll(token) {
+        return noteClient.get('', {
+            headers: {Authorization: bearerAuth(token)}
+        })
     },
 
-    getById(id: string | undefined) {
-        return noteClient.get(`/${id}`)
+    getById(id, token) {
+        return noteClient.get(`/${id}`, {
+            headers: {Authorization: bearerAuth(token)}
+        })
     },
 
-    create(note: Note) {
-        return noteClient.post('', note)
+    create(note, token) {
+        return noteClient.post('', note, {
+            headers: {Authorization: bearerAuth(token)}
+        })
     },
 
-    update(id: string | undefined, note: Note) {
-        return noteClient.put(`/${id}`, note)
+    update(id, note, token) {
+        return noteClient.put(`/${id}`, note, {
+            headers: {Authorization: bearerAuth(token)}
+        })
     },
 
-    delete(id: string | undefined) {
-        return noteClient.delete(`/${id}`)
+    delete(id, token) {
+        return noteClient.delete(`/${id}`, {
+            headers: {Authorization: bearerAuth(token)}
+        })
     }
 }

@@ -6,8 +6,12 @@ import Button from "../../components/Button.tsx";
 import SearchBar from "../../components/SearchBar.tsx";
 import {useNavigate} from "react-router-dom";
 import Loading from "../../components/Loading.tsx";
+import {useAuth} from "react-oidc-context";
 
 const NotesPage = () => {
+    const auth = useAuth()
+    const accessToken = auth.user.access_token
+
     const navigate = useNavigate();
     const [notes, setNotes] = useState<Note[]>([]);
     const [searchText, setSearchText] = useState("");
@@ -15,7 +19,7 @@ const NotesPage = () => {
 
     useEffect(() => {
         let isCancelled = false;
-        notesApi.getAll()
+        notesApi.getAll(accessToken)
             .then((response) => {
                 if (!isCancelled) {
                     setNotes(response.data);
@@ -30,7 +34,7 @@ const NotesPage = () => {
     }, [])
 
     const deleteNote = (id: string | undefined) => {
-        notesApi.delete(id)
+        notesApi.delete(id, accessToken)
             .then(() => {
                 setNotes(notes.filter(note => note.id !== id));
             })

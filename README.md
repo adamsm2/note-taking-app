@@ -9,14 +9,15 @@ Full-stack application + mobile which allows users create/delete/read/update the
 * Vite
 * Axios
 * React OIDC
+* Docker
 ### Backend
 * Java 17
 * SpringBoot
 * Maven
 * Lombok
-* Docker
-* PostgreSQL
 * Swagger
+* PostgreSQL
+* Docker
 ### Authentication and authorization service
 * Keycloak
 ### Mobile
